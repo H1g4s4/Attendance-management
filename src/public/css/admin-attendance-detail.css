@@ -1,0 +1,45 @@
+.admin-detail-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.attendance-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.attendance-detail-table th,
+.attendance-detail-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.attendance-detail-table input[type="time"],
+.attendance-detail-table input[type="text"] {
+    width: 100%;
+    padding: 6px;
+}
+
+.update-button {
+    padding: 10px 30px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.error-messages {
+    color: red;
+    margin-bottom: 15px;
+}
+
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 15px;
+}

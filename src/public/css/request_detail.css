@@ -1,0 +1,28 @@
+.request-detail-container {
+    width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.request-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.request-detail-table th,
+.request-detail-table td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.approve-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+}

@@ -1,0 +1,54 @@
+.attendance-container {
+    text-align: center;
+    padding: 50px;
+}
+
+.status-tag {
+    display: inline-block;
+    background-color: #ddd;
+    color: #555;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.date {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.time {
+    font-size: 40px;
+    font-weight: bold;
+    margin: 10px 0 30px;
+}
+
+.button-group form {
+    display: inline-block;
+    margin: 10px;
+}
+
+.btn {
+    padding: 10px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn.black {
+    background-color: #000;
+    color: #fff;
+}
+
+.btn.white {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.message {
+    font-size: 18px;
+    margin-top: 30px;
+}

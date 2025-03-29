@@ -1,0 +1,64 @@
+/* ヘッダー全体 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    /* ✅ 左右に均等配置 */
+    align-items: center;
+    /* ✅ 垂直中央揃え */
+    width: 100%;
+    /* ✅ ヘッダーを画面幅いっぱいに */
+    padding: 10px 40px;
+    /* ✅ 左右の余白を増やす */
+    background-color: #010000;
+    /* ✅ 背景色を黒に */
+    border-bottom: 1px solid #ddd;
+    /* ✅ 下に区切り線 */
+    position: fixed;
+    /* ✅ 常に上部に固定 */
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* ✅ 軽い影 */
+    height: 70px;
+    /* ✅ ヘッダーの高さ固定 */
+    box-sizing: border-box;
+}
+
+/* ロゴ */
+.logo {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+/* ナビゲーションメニュー */
+.nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav li {
+    margin-left: 20px;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* ログアウトボタン */
+.logout-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    text-decoration: underline;
+}
