@@ -1,28 +1,85 @@
 .request-detail-container {
-    width: 600px;
+    width: 1200px;
     margin: 40px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
 }
 
+.request-detail-container h2 {
+    font-size: 28px;
+    margin-bottom: 24px;
+    border-left: 6px solid #000;
+    padding-left: 12px;
+    color: #333;
+}
+
+.request-detail-panel {
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* テーブル全体 */
 .request-detail-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    border-spacing: 0;
 }
 
+/* 左カラム：30% */
+.request-detail-table th {
+    width: 30%;
+    text-align: left;
+    color: #666;
+    font-weight: normal;
+}
+
+/* 右カラム：70% */
+.request-detail-table td {
+    width: 70%;
+    text-align: left;
+    color: #333;
+}
+
+/* th と td 両方に下線を伸ばす */
 .request-detail-table th,
 .request-detail-table td {
+    padding: 20px 16px;
+    /* 縦幅を大きく */
+    border-bottom: 1px solid #e0e0e0;
+    /* 横線を端まで */
+}
+
+/* 最後の行だけ下線を消す */
+.request-detail-table tr:last-child th,
+.request-detail-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ラベルは左寄せ */
+.request-detail-table th {
     text-align: left;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    color: #666;
+    font-weight: normal;
+}
+
+/* 値も左寄せ */
+.request-detail-table td {
+    text-align: left;
+    color: #333;
+}
+
+.submit-area {
+    text-align: right;
+    margin-top: 16px;
 }
 
 .approve-button {
     background-color: #000;
     color: #fff;
     border: none;
-    padding: 12px 24px;
+    padding: 12px 36px;
+    font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
+    margin-top: 20px;
 }

@@ -2,26 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BreakTime extends Model
+class RequestBreakTime extends Model
 {
-    use HasFactory;
-
+    // マスアサイン可能なカラム
     protected $fillable = [
-        'attendance_id',
+        'request_log_id',
         'break_start',
         'break_end',
     ];
 
+    // 日付キャスト
     protected $casts = [
         'break_start' => 'datetime',
         'break_end'   => 'datetime',
     ];
 
-    public function attendance()
+    // リクエストログへのリレーション
+    public function requestLog()
     {
-        return $this->belongsTo(Attendance::class);
+        return $this->belongsTo(RequestLog::class);
     }
 }

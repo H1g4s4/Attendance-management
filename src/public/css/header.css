@@ -1,53 +1,70 @@
 /* ヘッダー全体 */
 .header {
-    display: flex;
-    justify-content: space-between;
-    /* ✅ 左右に均等配置 */
-    align-items: center;
-    /* ✅ 垂直中央揃え */
     width: 100%;
-    /* ✅ ヘッダーを画面幅いっぱいに */
-    padding: 10px 40px;
-    /* ✅ 左右の余白を増やす */
+    padding: 0px 40px;
     background-color: #010000;
-    /* ✅ 背景色を黒に */
-    border-bottom: 1px solid #ddd;
-    /* ✅ 下に区切り線 */
     position: fixed;
-    /* ✅ 常に上部に固定 */
     top: 0;
     left: 0;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* ✅ 軽い影 */
     height: 70px;
-    /* ✅ ヘッダーの高さ固定 */
     box-sizing: border-box;
-}
-
-/* ロゴ */
-.logo {
+    /* ヘッダー自体もflex化 */
     display: flex;
     align-items: center;
-    height: 30px;
 }
 
-/* ナビゲーションメニュー */
+/* 内部コンテナ：左右に分ける */
+.header-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* 左端（ロゴ）と右端（ナビ）に分ける */
+    align-items: center ;
+    height: 50px;
+}
+
+/* ロゴ部分 */
+.logo {
+    height: 30px;
+    display: block;
+    margin: 0;
+}
+
+/* ナビゲーション部分 */
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+/* リストの設定 */
 .nav ul {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
+    align-items: center;
+    white-space: nowrap;
+    /* 改行を防止 */
 }
 
 .nav li {
     margin-left: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .nav a {
     color: white;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 20px;
+}
+
+.logout-item form {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    /* デフォルト余白をリセット */
 }
 
 /* ログアウトボタン */
@@ -55,8 +72,10 @@
     background: none;
     border: none;
     color: white;
-    font-size: 14px;
+    font-size: 20px;
     cursor: pointer;
+    padding: 0;
+    line-height: 1;
 }
 
 .logout-button:hover {

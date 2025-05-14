@@ -54,10 +54,24 @@ class AdminAttendanceController extends Controller
 
     public function detail($user_id, $date)
     {
-        $attendance = Attendance::with(['user', 'breaks'])
+        // 既存コードを first() に変更
+        $attendance = Attendance::with(['user','breaks'])
             ->where('user_id', $user_id)
             ->whereDate('date', $date)
-            ->firstOrFail();
+            ->first();
+
+        if (! $attendance) {
+            $attendance = new Attendance([
+                'user_id'    => $user_id,
+                'date'       => $date,
+                'start_time' => null,
+                'end_time'   => null,
+                'note'       => null,
+            ]);
+            $attendance->setRelation('breaks', collect());
+            // ユーザー情報も手動でセット
+            $attendance->setRelation('user', User::find($user_id));
+        }
 
         return view('admin.attendance_detail', compact('attendance'));
     }

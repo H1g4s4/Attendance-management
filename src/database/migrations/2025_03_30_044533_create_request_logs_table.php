@@ -15,11 +15,13 @@ class CreateRequestLogsTable extends Migration
     {
         Schema::create('request_logs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('attendance_id')->constrained()->onDelete('cascade');
-            $table->text('reason'); // 申請理由
-            $table->boolean('is_pending')->default(true); // 承認待ちかどうか
-            $table->timestamps(); // created_at = 申請日
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->date('attendance_date');
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
+            $table->text('note')->nullable();
+            $table->boolean('is_pending')->default(true);
+            $table->timestamps();
         });
     }
 

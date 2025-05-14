@@ -11,6 +11,10 @@ h2 {
     margin-bottom: 30px;
 }
 
+form {
+    text-align: left;
+}
+
 label {
     font-size: 24px;
     display: block;
@@ -42,16 +46,7 @@ button {
 }
 
 button:hover {
-    background-color: darkgray;
-}
-
-a {
-    font-size: 24px;
-    display: block;
-    margin-top: 20px;
-    text-align: center;
-    color: blue;
-    text-decoration: none;
+    background-color: #333;
 }
 
 .error {

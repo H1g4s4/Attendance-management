@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RequestLog;
+use Illuminate\Support\Facades\DB;
 
 class AdminRequestController extends Controller
 {
@@ -11,15 +12,15 @@ class AdminRequestController extends Controller
     {
         $status = $request->query('status', 'pending');
 
-        $requests = RequestLog::with('user')
-            ->when($status === 'pending', fn($q) => $q->where('is_approved', false))
-            ->when($status === 'approved', fn($q) => $q->where('is_approved', true))
+        $requests = RequestLog::with(['user','attendance'])
+            ->when($status === 'pending', fn($q) => $q->where('is_pending', true))
+            ->when($status === 'approved', fn($q) => $q->where('is_pending', false))
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('admin.request_list', [
+        return view('admin.admin_request_list', [
             'requests' => $requests,
-            'status' => $status,
+            'activeTab' => $status,
         ]);
     }
 
@@ -31,32 +32,39 @@ class AdminRequestController extends Controller
 
     public function approve($id)
     {
-        $requestLog = RequestLog::with('attendance')->findOrFail($id);
+        DB::transaction(function() use ($id) {
+            // 1) 申請ログ取得
+            $requestLog = RequestLog::with(['attendance', 'breakTimes'])->findOrFail($id);
 
-        // 勤怠データ更新
-        $attendance = $requestLog->attendance;
-        $attendance->update([
-            'start_time' => $requestLog->start_time,
-            'end_time' => $requestLog->end_time,
-            'note' => $requestLog->note,
-            'is_pending' => false, // 承認完了としてフラグを下げる
-        ]);
-
-        // 既存の休憩削除 → 申請されたものに置き換え
-        $attendance->breaks()->delete();
-        foreach ($requestLog->breakTimes as $break) {
-            $attendance->breaks()->create([
-                'break_start' => $break->break_start,
-                'break_end' => $break->break_end,
+            // 2) 勤怠本体を更新
+            $attendance = $requestLog->attendance;
+            $attendance->update([
+                'start_time'  => $requestLog->start_time,
+                'end_time'    => $requestLog->end_time,
+                'note'        => $requestLog->note,
+                'is_pending'  => false,  // 申請フラグを下ろす
             ]);
-        }
 
-        // 修正申請自体のステータス更新
-        $requestLog->update([
-            'status' => 'approved',
-            'approved_at' => now(),
-        ]);
+            // 3) 休憩データを差し替え
+            $attendance->breaks()->delete();
+            foreach ($requestLog->breakTimes as $break) {
+                $attendance->breaks()->create([
+                    'break_start' => $break->break_start,
+                    'break_end'   => $break->break_end,
+                ]);
+            }
 
-        return redirect()->route('admin.requests.index')->with('message', '申請を承認しました。');
+            // 4) 申請ログ側ステータス更新
+            // もし is_pending カラムならこちら
+            $requestLog->update([
+                'is_pending'  => false,
+                'approved_at' => now(),
+            ]);
+            // → もし status カラムを使うなら 'status' => 'approved' に
+        });
+
+        return redirect()
+            ->route('admin.requests.index', ['status' => 'pending'])
+            ->with('message', '申請を承認しました。');
     }
 }

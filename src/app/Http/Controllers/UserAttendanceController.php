@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Attendance;
+use App\Http\Requests\AttendanceUpdateRequest;
 use App\Models\BreakTime; // ← 休憩用モデル（あとで作る）
 
 class UserAttendanceController extends Controller
@@ -50,7 +51,7 @@ class UserAttendanceController extends Controller
 
         $exists = Attendance::where('user_id', $user->id)->whereDate('date', $today)->exists();
         if ($exists) {
-            return redirect()->route('attendance.index');
+            return redirect()->route('user.attendance');
         }
 
         Attendance::create([
@@ -60,7 +61,7 @@ class UserAttendanceController extends Controller
             'is_on_break' => false,
         ]);
 
-        return redirect()->route('attendance.index');
+        return redirect()->route('user.attendance');
     }
 
     // 退勤処理
@@ -75,7 +76,7 @@ class UserAttendanceController extends Controller
             ]);
         }
 
-        return redirect()->route('attendance.index');
+        return redirect()->route('user.attendance');
     }
 
     // 休憩開始処理
@@ -93,7 +94,7 @@ class UserAttendanceController extends Controller
             ]);
         }
 
-        return redirect()->route('attendance.index');
+        return redirect()->route('user.attendance');
     }
 
     // 休憩終了処理
@@ -115,11 +116,13 @@ class UserAttendanceController extends Controller
             }
         }
 
-        return redirect()->route('attendance.index');
+        return redirect()->route('user.attendance');
     }
 
     public function list(Request $request)
     {
+        Carbon::setLocale('ja');
+
         $user = Auth::user();
 
         $targetMonth = $request->input('month') 
@@ -141,30 +144,42 @@ class UserAttendanceController extends Controller
         // その月の全日リスト
         $daysInMonth = [];
         for ($date = $startOfMonth->copy(); $date->lte($endOfMonth); $date->addDay()) {
+            // 各日の勤怠データを取得
             $att = $attendanceData->get($date->format('Y-m-d'));
 
-            $start = $att?->start_time ? Carbon::parse($att->start_time)->format('H:i') : null;
-            $end = $att?->end_time ? Carbon::parse($att->end_time)->format('H:i') : null;
+            // 出勤・退勤時刻のフォーマット（存在すれば）
+            $start = isset($att->start_time) ? Carbon::parse($att->start_time)->format('H:i') : null;
+            $end = isset($att->end_time) ? Carbon::parse($att->end_time)->format('H:i') : null;
 
-            $breakTotal = $att?->breaks->reduce(function ($carry, $break) {
-                $start = Carbon::parse($break->break_start);
-                $end = $break->break_end ? Carbon::parse($break->break_end) : Carbon::now();
-                return $carry + $start->diffInMinutes($end);
-            }, 0);
+            // 曜日の取得（日本語表記）
+            $weekday = $date->isoFormat('ddd');  // localeがjaなら "日", "月", etc.
 
+            // 休憩時間の合計を計算（$breakTotal を先に計算）
+            if ($att && isset($att->breaks)) {
+                $breakTotal = $att->breaks->reduce(function ($carry, $break) {
+                    $startBreak = Carbon::parse($break->break_start);
+                    $endBreak   = $break->break_end ? Carbon::parse($break->break_end) : Carbon::now();
+                    return $carry + $startBreak->diffInMinutes($endBreak);
+                }, 0);
+            } else {
+                $breakTotal = 0;
+            }
+
+            // 勤務時間の計算
             $workTime = null;
             if ($att && $att->start_time && $att->end_time) {
                 $workTimeMin = Carbon::parse($att->start_time)->diffInMinutes(Carbon::parse($att->end_time)) - $breakTotal;
                 $workTime = floor($workTimeMin / 60) . ':' . str_pad($workTimeMin % 60, 2, '0', STR_PAD_LEFT);
             }
 
+            // 日付と勤怠情報を配列に追加
             $daysInMonth[] = [
-                'raw_date' => $date->format('Y-m-d'),
-                'date' => $date->format('m/d(D)'),
-                'start_time' => $start,
-                'end_time' => $end,
-                'break_duration' => $breakTotal ? floor($breakTotal / 60) . ':' . str_pad($breakTotal % 60, 2, '0', STR_PAD_LEFT) : '',
-                'total_work_time' => $workTime,
+                'raw_date'         => $date->format('Y-m-d'),
+                'date'             => $date->format('n/j') . '(' . $weekday . ')', // 例: 4/6(日)
+                'start_time'       => $start,
+                'end_time'         => $end,
+                'break_duration'   => $breakTotal ? floor($breakTotal / 60) . ':' . str_pad($breakTotal % 60, 2, '0', STR_PAD_LEFT) : '',
+                'total_work_time'  => $workTime,
             ];
         }
 
@@ -179,7 +194,22 @@ class UserAttendanceController extends Controller
     public function detail($date)
     {
         $user = Auth::user();
-        $attendance = Attendance::where('user_id', $user->id)->where('date', $date)->with('breaks')->firstOrFail();
+        // 該当日のレコードを取得（なければ null）
+        $attendance = Attendance::with('breaks')->where('user_id', $user->id)->whereDate('date',$date)->first();
+
+        // レコードがなければ、画面表示用のダミーオブジェクトを用意
+        if (! $attendance) {
+        $attendance = new Attendance([
+            'user_id'    => $user->id,
+            'date'       => $date,
+            'start_time' => null,
+            'end_time'   => null,
+            'note'       => null,
+        ]);
+        // ブレイク情報も空コレクションで
+        $attendance->setRelation('breaks', collect());
+    }
+
         return view('attendance.detail', compact('attendance'));
     }
 

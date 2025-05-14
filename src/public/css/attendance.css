@@ -1,54 +1,94 @@
+/* 全体のコンテナ */
 .attendance-container {
+    /* 画面の中心に配置 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    /* 画面上部に余白をつくり、下方向にも伸ばす */
+    min-height: calc(100vh - 70px);
+    /* 70pxはヘッダーの高さなどに応じて調整 */
+    margin: 0 auto;
+    padding: 240px 40px 40px;
+    box-sizing: border-box;
+    background-color: #f6f6f6;
+    /* 好みに応じて背景色 */
     text-align: center;
-    padding: 50px;
+    /* 中央寄せ */
+}
+
+/* ステータスラベル */
+.status-label {
+    margin-bottom: 10px;
 }
 
 .status-tag {
     display: inline-block;
     background-color: #ddd;
-    color: #555;
-    font-size: 14px;
-    padding: 5px 10px;
+    color: #444;
+    font-size: 30px;
+    padding: 6px 12px;
     border-radius: 20px;
     margin-bottom: 20px;
 }
 
+/* 日付表示 */
 .date {
-    font-size: 20px;
+    font-size: 40px;
     margin: 10px 0;
 }
 
+/* 時刻表示 */
 .time {
-    font-size: 40px;
+    font-size: 90px;
     font-weight: bold;
-    margin: 10px 0 30px;
+    margin: 20px 0 40px;
 }
 
+/* ボタン */
 .button-group form {
     display: inline-block;
-    margin: 10px;
+    margin: 0 8px;
+    /* ボタン同士の間隔 */
 }
 
 .btn {
-    padding: 10px 30px;
-    font-size: 16px;
-    border-radius: 8px;
+    font-size: 30px;
+    width: 200px;
+    padding: 12px 0px;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
+    display: inline-block;
+    text-align: center;
 }
 
+/* 黒ボタン */
 .btn.black {
     background-color: #000;
     color: #fff;
+    margin-bottom: 10px;
 }
 
+.btn.black:hover {
+    background-color: #333;
+}
+
+/* 白ボタン */
 .btn.white {
     background-color: #fff;
     color: #000;
     border: 1px solid #000;
+    margin-bottom: 10px;
 }
 
+.btn.white:hover {
+    background-color: #f0f0f0;
+}
+
+/* 出勤済みメッセージ */
 .message {
-    font-size: 18px;
+    font-size: 25px;
     margin-top: 30px;
 }

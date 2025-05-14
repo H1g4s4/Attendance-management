@@ -1,45 +1,127 @@
 .admin-detail-container {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
+    width: 1200px;
+    margin: 60px auto;
+    font-family: 'Helvetica Neue', sans-serif;
 }
 
+/* 見出し：表の外に、左に黒縦線 */
+.admin-detail-container h2 {
+    font-size: 28px;
+    margin-bottom: 50px;
+    /* ← 下に余白を追加 */
+    border-left: 6px solid #000;
+    padding-left: 12px;
+}
+
+/* パネル全体 */
+.detail-table-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* テーブル：外枠線を消して下線のみ */
 .attendance-detail-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    border: none;
 }
 
-.attendance-detail-table th,
-.attendance-detail-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
+/* 共通セル設定 */
+.attendance-detail-table th.col-label,
+.attendance-detail-table td.col-value {
+    padding: 20px 16px;
+    /* 縦・横ともにゆったりめに */
+    border: none;
+    /* 外枠線を消す */
+    border-bottom: 1px solid #ddd;
+    /* 下線だけ */
 }
 
-.attendance-detail-table input[type="time"],
-.attendance-detail-table input[type="text"] {
-    width: 100%;
+/* 最終行の下線を消す */
+.attendance-detail-table tr:last-child th,
+.attendance-detail-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ラベル文字色＆位置を揃える */
+.attendance-detail-table th.col-label {
+    color: #737373;
+    text-align: left;
+    vertical-align: middle;
+    width: 20%;
+    /* お好みで調整 */
+}
+
+/* 値セルの幅 */
+.attendance-detail-table td.col-value {
+    color: #000;
+    text-align: left;
+    vertical-align: middle;
+    width: 40%;
+    /* お好みで調整 */
+}
+
+/* time-group */
+.time-group {
+    display: flex;
+    align-items: center;
+}
+
+/* 「〜」 のスタイル */
+.time-group .tilde {
+    margin: 0 12px;
+    color: #000;
+    font-size: 18px;
+}
+
+/* time-input（テキストボックス） */
+.time-input {
+    width: 100px;
+    /* ← 狭めに */
     padding: 6px;
+    box-sizing: border-box;
 }
 
+/* 備考用テキスト */
+.note-input {
+    width: 33%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 修正ボタンを右寄せ */
+.submit-area {
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* ボタン */
 .update-button {
     padding: 10px 30px;
     background-color: #000;
     color: #fff;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
 }
 
+.update-button:hover {
+    background-color: #333;
+}
+
+/* エラーメッセージ */
 .error-messages {
-    color: red;
+    color: #e74c3c;
     margin-bottom: 15px;
 }
 
+/* 成功メッセージ */
 .success-message {
-    color: green;
+    color: #27ae60;
     font-weight: bold;
     margin-bottom: 15px;
 }

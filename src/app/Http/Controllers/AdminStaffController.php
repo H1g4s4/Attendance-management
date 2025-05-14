@@ -38,14 +38,23 @@ class AdminStaffController extends Controller
         for ($date = $start->copy(); $date->lte($end); $date->addDay()) {
             $att = $attendanceData->get($date->format('Y-m-d'));
 
-            $startTime = $att?->start_time ? Carbon::parse($att->start_time)->format('H:i') : null;
-            $endTime = $att?->end_time ? Carbon::parse($att->end_time)->format('H:i') : null;
+            $startTime = ($att && isset($att->start_time))
+                ? Carbon::parse($att->start_time)->format('H:i')
+                : null;
+            $endTime   = ($att && isset($att->end_time))
+                ? Carbon::parse($att->end_time)->format('H:i')
+                : null;
 
-            $breakTotal = $att?->breaks->reduce(function ($carry, $break) {
-                $start = Carbon::parse($break->break_start);
-                $end = $break->break_end ? Carbon::parse($break->break_end) : Carbon::now();
-                return $carry + $start->diffInMinutes($end);
-            }, 0);
+            $breakTotal = 0;
+            if ($att && $att->breaks) {
+                $breakTotal = $att->breaks->reduce(function ($carry, $break) {
+                    $start = Carbon::parse($break->break_start);
+                    $end   = $break->break_end
+                        ? Carbon::parse($break->break_end)
+                        : Carbon::now();
+                    return $carry + $start->diffInMinutes($end);
+                }, 0);
+            }
 
             $workTime = null;
             if ($att && $att->start_time && $att->end_time) {

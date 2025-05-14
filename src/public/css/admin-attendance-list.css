@@ -1,42 +1,111 @@
+/* 全体コンテナ */
 .admin-attendance-container {
-    max-width: 900px;
-    margin: 40px auto;
+    width: 1200px;
+    margin: 80px auto;
+    padding: 20px 20px;
+        /* 内側の余白を増やす */
+    background-color: #f6f6f6;
+    border-radius: 8px;
     font-family: 'Helvetica Neue', sans-serif;
 }
 
+/* 見出し */
 .admin-attendance-container h2 {
-    font-size: 22px;
-    margin-bottom: 20px;
+    font-size: 32px;
+    margin-bottom: 50px;
+    border-left: 6px solid #000;
+    padding-left: 12px;
+    display: inline-block;
+    /* テキスト幅に合わせる */
+    text-align: left;
 }
 
 .date-navigation {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    margin-bottom: 20px;
+    gap: 32px;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+/* 前日リンク */
+.date-navigation .nav-prev {
+    font-size: 18px;
     font-weight: bold;
+    color: #737373;
+    text-decoration: none;
+}
+
+/* 翌日リンク */
+.date-navigation .nav-next {
+    font-size: 18px;
+    font-weight: bold;
+    color: #737373;
+    text-decoration: none;
+}
+
+.date-navigation .current-date {
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+/* カレンダーアイコン */
+.date-navigation .calendar-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.admin-attendance-table-panel .date-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    background-color: #fff;
+    /* 白い背景 */
+    padding: 16px 24px;
+    /* 行の内側余白 */
+    border-bottom: 40px solid #f6f6f6;
+    /* テーブルとつなぐ境界線 */
+}
+
+.admin-attendance-table-panel {
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .admin-attendance-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
 }
 
 .admin-attendance-table th,
 .admin-attendance-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
+    padding: 16px;
+    font-size: 16px;
+    border-bottom: 1px solid #e0e0e0;
     text-align: center;
 }
 
 .admin-attendance-table th {
-    background-color: #f2f2f2;
+    background-color: #fff;
+        /* ヘッダーを白系に */
+    font-weight: bold;
 }
 
 .admin-attendance-table td a {
     color: #000;
     font-weight: bold;
     text-decoration: none;
+}
+
+.admin-attendance-table tr:last-child td {
+    border-bottom: none;
 }

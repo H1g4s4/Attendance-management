@@ -1,17 +1,29 @@
+/* 外枠をなくし、全体は透明 */
 .attendance-detail-container {
-    max-width: 700px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
+    width: 1000px;
+    margin: 60px auto;
     font-family: 'Helvetica Neue', sans-serif;
 }
 
+/* 見出し：左に黒線 */
 .attendance-detail-container h2 {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 80px;
+    border-left: 10px solid #000;
+    /* 黒線 */
+    padding-left: 10px;
+    /* 黒線との間隔 */
 }
 
+/* テーブル部分だけ白枠 */
+.detail-table-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+/* テーブル */
 .attendance-detail-table {
     width: 100%;
     border-collapse: collapse;
@@ -20,36 +32,52 @@
 
 .attendance-detail-table th,
 .attendance-detail-table td {
-    padding: 12px;
+    padding: 15px;
     border-bottom: 1px solid #e0e0e0;
     text-align: left;
     font-size: 14px;
 }
 
+.attendance-detail-table td .year {
+    margin-right: 10px;
+    /* 年と月日の間に10pxの余白を設定 */
+}
+
+/* テーブルのヘッダーセルを白 */
 .attendance-detail-table th {
     width: 150px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     font-weight: bold;
 }
 
+/* 時間入力欄 */
 .attendance-detail-table input[type="time"],
 .attendance-detail-table input[type="text"] {
-    width: 120px;
-    padding: 6px;
+    width: 150px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .attendance-detail-table input[type="text"] {
     width: 100%;
 }
 
+.attendance-detail-table input.note-input {
+    height: 80px;
+    width: 320px;
+    padding: 6px;
+}
+
+/* エラー表示 */
 .error {
     color: red;
     font-size: 12px;
     margin-top: 4px;
 }
 
+/* 備考のエラー */
 .note-error {
     color: #e74c3c;
     font-size: 13px;
@@ -57,16 +85,23 @@
     margin-top: 10px;
 }
 
+/* 修正ボタンを枠外に配置 */
 .submit-area {
     text-align: right;
+    margin-top: 70px;
 }
 
+/* ボタン */
 .btn.black {
     background-color: #000;
     color: #fff;
     border: none;
     padding: 10px 30px;
-    font-size: 14px;
+    font-size: 20px;
     border-radius: 6px;
     cursor: pointer;
+}
+
+.btn.black:hover {
+    background-color: #333;
 }

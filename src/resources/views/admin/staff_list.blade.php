@@ -21,7 +21,10 @@
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td><a href="{{ route('admin.staff.attendance', ['user_id' => $user->id]) }}">詳細</a></td>
+                    <td>
+                        <a href="{{ route('admin.staff.attendance', ['id' => $user->id]) }}">詳細
+                        </a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

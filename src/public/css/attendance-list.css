@@ -1,28 +1,48 @@
 .attendance-list-container {
-    max-width: 800px;
+    width: 1000px;
     margin: 40px auto;
-    padding: 20px;
+    padding: 40px;
     background-color: #f7f7f7;
     border-radius: 8px;
     font-family: 'Helvetica Neue', sans-serif;
 }
 
 .attendance-list-container h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 32px;
+    margin-bottom: 50px;
+    /* ↓ 見出しの左に黒線を出し、内側に余白を作る ↓ */
+    border-left: 10px solid #000;
+    padding-left: 10px;
 }
 
 .month-selector {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 18px;
-    margin-bottom: 20px;
+    font-size: 24px;
+    margin-bottom: 25px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
+}
+
+.month-display {
+    display: flex;
+    align-items: center;
+}
+
+.calendar-icon {
+    width: 30px;
+    /* お好みでサイズ調整 */
+    height: auto;
+    /* アスペクト比を維持 */
+    margin-right: 10px;
+    /* テキストとの間隔を設定 */
 }
 
 .month-selector a {
     text-decoration: none;
-    color: #000;
+    color: #737373;
     font-weight: bold;
 }
 
@@ -38,13 +58,13 @@
 .attendance-table th,
 .attendance-table td {
     text-align: center;
-    padding: 12px;
+    padding: 16px;
     border-bottom: 1px solid #e0e0e0;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 .attendance-table th {
-    background-color: #f0f0f0;
+    background-color: #fff;
     font-weight: bold;
 }
 
@@ -56,4 +76,14 @@
 
 .attendance-table tr:last-child td {
     border-bottom: none;
+}
+
+#monthPicker {
+    position: absolute;
+    opacity: 0;
+    /* 見た目には透明 */
+    width: 1px;
+    /* 最小サイズにする */
+    height: 1px;
+    /* pointer-events を auto にすることで、プログラムからの操作が反映される */
 }

@@ -1,29 +1,59 @@
 .staff-attendance-container {
-    max-width: 900px;
+    width: 1200px;
     margin: 40px auto;
     padding: 20px;
-    background: #fff;
     border-radius: 8px;
 }
 
+/* 月切り替え部分を白いパネルに */
 .month-selector {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    /* ここからパネル風 */
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 16px;
     margin: 20px 0;
+}
+
+.month-selector a {
+    color: #737373;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.month-selector span {
+    color: #000;
     font-weight: bold;
 }
 
 .attendance-table {
+    border: none;
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+        /* 角丸を適用 */
+    border-collapse: collapse;
 }
 
 .attendance-table th,
 .attendance-table td {
-    padding: 10px;
-    border: 1px solid #ccc;
+    border: none;
+    padding: 12px 8px;
+    border-bottom: 1px solid #ccc;
     text-align: center;
+}
+
+.attendance-table td a {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .csv-button {

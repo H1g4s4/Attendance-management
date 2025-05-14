@@ -10,9 +10,9 @@
 
     {{-- 月切り替え --}}
     <div class="month-selector">
-        <a href="{{ route('admin.staff.attendance', ['user_id' => $user->id, 'month' => $previousMonth]) }}">← 前月</a>
+        <a href="{{ route('admin.staff.attendance', ['id' => $user->id, 'month' => $previousMonth]) }}">← 前月</a>
         <span>{{ $currentMonthFormatted }}</span>
-        <a href="{{ route('admin.staff.attendance', ['user_id' => $user->id, 'month' => $nextMonth]) }}">翌月 →</a>
+        <a href="{{ route('admin.staff.attendance', ['id' => $user->id, 'month' => $nextMonth]) }}">翌月 →</a>
     </div>
 
     {{-- 勤怠テーブル --}}
@@ -30,7 +30,8 @@
         <tbody>
             @foreach ($attendances as $attendance)
                 <tr>
-                    <td>{{ $attendance['date'] }}</td>
+                    <td>{{ \Carbon\Carbon::parse($attendance['raw_date'])
+                        ->isoFormat('M/D(ddd)') /* 例: 4/6(日) */ }}</td>
                     <td>{{ $attendance['start_time'] ?? '' }}</td>
                     <td>{{ $attendance['end_time'] ?? '' }}</td>
                     <td>{{ $attendance['break_duration'] ?? '' }}</td>
@@ -43,7 +44,7 @@
         </tbody>
     </table>
 
-    <form method="GET" action="{{ route('admin.staff.attendance.csv', ['user_id' => $user->id]) }}">
+    <form method="GET" action="{{ route('admin.staff.attendance.csv', ['id' => $user->id]) }}">
         <input type="hidden" name="month" value="{{ request('month', \Carbon\Carbon::now()->format('Y-m')) }}">
         <button type="submit" class="csv-button">CSV出力</button>
     </form>

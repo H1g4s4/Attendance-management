@@ -16,7 +16,7 @@ class AdminLoginController extends Controller
     public function login(LoginRequest $request)
     {
         if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.attendance.index');
         }
 
         return back()->withErrors(['email' => 'ログイン情報が登録されていません']);

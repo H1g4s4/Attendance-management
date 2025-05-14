@@ -1,49 +1,87 @@
-.request-list-container {
-    max-width: 900px;
-    margin: 40px auto;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
+/* 全体コンテナ */
+.request-container {
+    width: 1200px;
+    margin: 80px auto;
+    padding: 0 20px;
+    font-family: 'Helvetica Neue', sans-serif;
 }
 
-h2 {
-    margin-bottom: 25px;
-    font-size: 22px;
-    border-left: 5px solid #000;
-    padding-left: 10px;
+/* 見出し */
+.request-container h2 {
+    font-size: 28px;
+    margin: 40px 0 80px;
+    border-left: 6px solid #000;
+    padding-left: 12px;
 }
 
+/* タブ：横並び & パネル下に黒い横線 */
 .tabs {
     display: flex;
-    margin-bottom: 20px;
+    gap: 24px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #000;
+    /* ← タブ下に横幅いっぱいの線 */
+    padding-bottom: 8px;
+    /* ← 線とタブの間隔 */
 }
 
+/* タブリンク */
 .tabs a {
-    margin-right: 20px;
-    text-decoration: none;
+    font-size: 18px;
     font-weight: bold;
-    color: #333;
-    border-bottom: 2px solid transparent;
-    padding-bottom: 5px;
+    color: #888;
+    /* 非アクティブはグレー */
+    text-decoration: none;
+    /* 下線は .tabs の border-bottom で表現するのでタブ自身には不要 */
+    padding-bottom: 4px;
 }
 
+/* アクティブタブだけ黒く */
 .tabs a.active {
-    border-color: #000;
+    color: #000;
 }
 
+/* テーブルパネル */
+.request-table-panel {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* テーブル全体 */
 .request-table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
 }
 
-.request-table th,
-.request-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ccc;
-    text-align: center;
-}
-
+/* ヘッダー行を真っ白に */
 .request-table th {
-    background-color: #f5f5f5;
+    background-color: #fff;
+    /* ← ここを白に */
+    font-weight: bold;
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* ボディセル */
+.request-table td {
+    padding: 16px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* 最終行の下線を消す */
+.request-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* 「詳細」リンクを黒く */
+.request-table td a {
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
 }
